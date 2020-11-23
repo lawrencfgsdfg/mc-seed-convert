@@ -1,1 +1,110 @@
-<h>test</h>
+<!DOCTYPE html>
+<html>
+<title>mc seed convert thing</title>
+<style>
+@font-face {
+  font-family: mc;
+  src: url('https://lawrencfgsdfg.github.io/mc-seed-convert/Minecraftia.ttf');
+}
+
+* {
+  font-family: mc;
+  color: white;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  font-size:16px;
+}
+
+input::selection {
+  color: blue;
+  background-color: rgba(255,255,255,.99);
+}
+p {display: inline-block;}
+
+input {
+  display: inline-block;
+  padding-top: 12px;
+  border: 2px;
+  font-size: 16px;
+  background: black;
+  border-style: solid;
+  border-color: darkgray;
+  border-radius: 0px;
+  height: 16px;
+  width: 300px;
+  padding-left: 8px;
+  outline-width: 0;
+}
+
+.toggle {
+  padding-left: 4px;
+  padding-right: 2px;
+  height: 24px;
+  border: 2px;
+  border-style: solid;
+  border-color: darkgray;
+  background: black;
+  width: 100px;
+}
+
+body {background-image: url(https://raw.githubusercontent.com/lawrencfgsdfg/mc-seed-convert/main/dirt.png);}
+
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+</style>
+
+<body>
+<center>
+<p style="font-size:24px;">Minecraft Seed Converter</p><br>
+
+<p>Input Seed:</p>
+<input type="number" id="seed" onkeyup="convert()" value="12345" >
+
+<br>
+<p>Convert to:&nbsp;</p><p id="toggle" onclick="dothing(); convert();" class="toggle">Java</p>
+
+<div id="out">
+<p>Converted Seed:</p>
+<input readonly id="seed2" value="zoop">
+</div>
+
+
+</center>
+</body>
+<script>
+var x = document.getElementById("toggle");
+function dothing() {
+  if (x.innerHTML === "Bedrock") {
+    x.innerHTML = "Java";
+  } else if (x.innerHTML === "Java") {
+    x.innerHTML = "Bedrock";
+  }
+}
+
+function convert(){
+	theseed = document.getElementById("seed2")
+	pee = document.getElementById("seed").value
+	zooped = "bruh"; theseed.style.color = "red";
+  if (x.innerHTML === "Bedrock") {
+  	if (pee <= 4294967296 && pee > 2147483648) { zooped = parseInt(pee) - 4294967296; theseed.style.color = "white";}
+  	if (pee <= 2147483648) { zooped = pee; theseed.style.color = "white";}
+  	if (pee < 0) { zooped = "couldn't convert"; theseed.style.color = "red";}
+    if (pee > 4294967296) { zooped = "couldn't convert"; theseed.style.color = "red";}
+  } else if (x.innerHTML === "Java") {
+  	if (pee < 0) { zooped = parseInt(pee) + 4294967296; theseed.style.color = "white";}
+    if (pee > 0) { zooped = pee; theseed.style.color = "white";}
+    if (pee > 2147483648) { zooped = "not even a valid bedrock seed"; theseed.style.color = "red";}
+    if (pee < -2147483648) { zooped = "not even a valid bedrock seed"; theseed.style.color = "red";}
+  }
+  document.getElementById("seed2").value = zooped;
+}
+</script>
+</html>
